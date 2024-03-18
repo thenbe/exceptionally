@@ -518,13 +518,12 @@ Useful assertion functions.
   > As a workaround we can set a property inside that class to make inference work again.
   > ```ts
   > class NetworkException extends Error {
-  > ```
-  readonly #id = Symbol('NetworkException')
+  >   readonly #id = Symbol('NetworkException')
   > }
+  >
   > class DecodeJsonException extends Error {
-  > readonly #id = Symbol('DecodeJsonException')
+  >   readonly #id = Symbol('DecodeJsonException')
   > }
-  > ```
   > ```
 
 <!---------------------------------------------------------------------------------------------------------->
