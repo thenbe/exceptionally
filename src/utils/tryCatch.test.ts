@@ -1,12 +1,12 @@
 /* eslint-disable max-nested-callbacks */
-import { afterAll, beforeAll, beforeEach, describe, expect, type MockContext, type SpyInstance, test, vi } from 'vitest'
+import { afterAll, beforeAll, beforeEach, describe, expect, test, vi, type MockInstance } from 'vitest'
 import { exception, success } from '../core/index.js'
 import { tryCatch } from './tryCatch.js'
 
 const noop = () => {/* empty function */}
 
 describe('tryCatch', () => {
-	let consoleMock: SpyInstance
+	let consoleMock: MockInstance<Parameters<Console['error']>, ReturnType<Console['error']>>
 
 	beforeAll(() => {
 		consoleMock = vi.spyOn(console, 'error').mockImplementation(noop)
@@ -107,7 +107,7 @@ describe('tryCatch', () => {
 
 				test('should log the error', async () => {
 					await tryCatch(async () => Promise.reject(new Error('rejected')), noop)
-					expect((consoleMock as unknown as MockContext<[Error], unknown>).calls?.[0]?.[0]?.message)
+					expect(consoleMock.mock.calls?.[0]?.[0]?.message)
 						.toBe('rejected')
 				})
 			})
@@ -149,7 +149,7 @@ describe('tryCatch', () => {
 
 				test('should log the error', async () => {
 					await tryCatch(async () => Promise.reject(new Error('rejected')), errorFn)
-					expect((consoleMock as unknown as MockContext<[Error], unknown>).calls?.[0]?.[0]?.message)
+					expect(consoleMock.mock.calls?.[0]?.[0]?.message)
 						.toBe('rejected (wrapped)')
 				})
 			})
