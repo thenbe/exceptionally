@@ -5,9 +5,10 @@
 			"ES2022",
 			"DOM"
 		],
-		"module": "ES2022",
+		"module": "Preserve",
+		"noEmit": true,
 		"rootDirs": ["./src", "./test"],
-		"moduleResolution": "Node16",
+		"moduleResolution": "Bundler",
 		"resolveJsonModule": true,
 		"allowJs": true,
 		"checkJs": true,
